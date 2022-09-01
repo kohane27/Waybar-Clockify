@@ -2,7 +2,7 @@
 
 > Track and display [Clockify](https://clockify.me/)'s time entry from `Waybar`
 
-![cli](https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4)
+https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
 ## Description
 
