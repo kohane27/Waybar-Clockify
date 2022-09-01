@@ -1,6 +1,6 @@
 # Waybar-Clockify [![Licence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) 
 
-> Track and display [Clockify](https://clockify.me/)'s time entry from `Waybar`
+> Track and display [Clockify](https://clockify.me/)'s time entry at `Waybar`
 
 https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
@@ -24,13 +24,12 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 - [timewarrior](https://github.com/GothenburgBitFactory/timewarrior)
 - [clockify-cli](https://github.com/lucassabreu/clockify-cli)
 - [rofi](https://github.com/davatorium/rofi)
-- [fzf](https://github.com/junegunn/fzf)
 - [jq](https://github.com/stedolan/jq)
+- [fzf](https://github.com/junegunn/fzf) (optional if you want to control through terminal)
 
 ### Installation
 
 1. Clone this repository:
-
 `git clone https://github.com/kohane27/Waybar-Clockify.git`
 
 2. Put the directory `src/Waybar-Clockify` under `~/.config/waybar/scripts/Waybar-Clockify`:
