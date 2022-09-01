@@ -131,8 +131,6 @@ Inside `clockify-tags.txt`, you'll find the following samples:
 {"p": "Entertainment","t": ["youtube"], "d": ""}
 ```
 
-The `timewarrior` tag field is converted to a json for `clockify-cli` to consume.
-
 - `p`: project
 - `t`: tags
 - `d`: description
@@ -153,22 +151,22 @@ Each key corresponds to PROJECT, TAGS and DESCRIPTION in `clockify-cli`:
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 ```
 
-You need to make sure `p`(`project`) and `t`(`tags`) fields exist in clockify, or else `Waybar-Clockify` will fail. In the above example, the projects `Code` and `Entertainment`, and the tags `clientA`, `clientB`, `youtube` need to exist in `Clockify`.
+You need to make sure `p`(`project`) and `t`(`tags`) fields exist in `clockify`, or else `clockify-cli` will fail to send the time entry to `Clockify`. In the above example, the projects `Code` and `Entertainment`, and the tags `clientA`, `clientB`, `youtube` need to exist in `Clockify`.
 
 To see the projects available `clockify-cli project list --not-archived --csv`
 
 To see the tags available: `clockify-cli tag`
 
-#### 2. Back up your `.timewarrior` data
+#### 2. Beware of modification of `timewarrior` tag fields
 
-I use `timewarrior` as a medium between `Waybar-Clockify` and `clockify-cli`. It'll append tags like below to `~/.timewarrior/data/2022-09.data`:
+I use `timewarrior` as a medium between `Waybar-Clockify` and `clockify-cli`. The `timewarrior` tag field is converted to a json for `clockify-cli` to consume. The tag field will become like the following:
 
 ```
 inc 20220831T091819Z - 20220831T091822Z # "{\"p\": \"Entertainment\",\"d\": \"\",\"t\": [\"youtube\"]}"
 inc 20220831T133109Z - 20220831T133121Z # "{\"p\": \"Code\",\"t\": [\"code\",\"career\"], \"d\": \"clientA\"}"
 ```
 
-Please take into acount of this modification of `timewarrior` data before using `Waybar-Clockify`.
+Please take into acount of this modification of `timewarrior` data before using `Waybar-Clockify`. Back up your `.timewarrior` data.
 
 ## How `Waybar-Clockify` works
 
