@@ -107,7 +107,7 @@ https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-
 2. Click on a predefined tag in `clockify-tags.txt` through `rofi`
 3. Right click to stop the timer
 
-### 2. Only through the command line
+### 2. Only through terminal
 
 https://user-images.githubusercontent.com/57322459/187881260-48ad1ad1-7964-4a61-8b84-2f1fb8876fc0.mp4
 
@@ -118,26 +118,6 @@ If you've added the optional shell functions to `~/.bashrc` or `~/.zshrc` (step 
 3. Use the command `to` to stop the timer
 
 Additionally, you could start `Waybar-Clockify` in the terminal and stop in `Waybar`, or start in `Waybar` and stop in the terminal.
-
-## How `Waybar-Clockify` works
-
-The backbone of time tracking is done by `timewarrior`, so any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` still work.
-
-`Waybar` displays the latest time tracked by `timewarrior`, effectively `timew get dom.active.duration`.
-
-When you left-click the Waybar module or use the command `to`, it'll trigger the follow `clockify-cli` command to communicate with `clockify` API:
-
-```sh
-clockify-cli manual \
-  --project "$project" \
-  --description "$description" \
-  --when "$start" \
-  --when-to-close "$end" \
-  --tag "$tag"
-  --interactive=0
-```
-
-It's permissive: if no project, description, tags are provided, default values are used.
 
 ### Caveats
 
@@ -189,6 +169,26 @@ inc 20220831T133109Z - 20220831T133121Z # "{\"p\": \"Code\",\"t\": [\"code\",\"c
 ```
 
 Please take into acount of this modification of `timewarrior` data before using `Waybar-Clockify`.
+
+## How `Waybar-Clockify` works
+
+The backbone of time tracking is done by `timewarrior`, so any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` still work.
+
+`Waybar` displays the latest time tracked by `timewarrior`, effectively `timew get dom.active.duration`.
+
+When you left-click the Waybar module or use the command `to`, it'll trigger the follow `clockify-cli` command to communicate with `clockify` API:
+
+```sh
+clockify-cli manual \
+  --project "$project" \
+  --description "$description" \
+  --when "$start" \
+  --when-to-close "$end" \
+  --tag "$tag"
+  --interactive=0
+```
+
+It's permissive: if no project, description, tags are provided, default values are used, i.e., empty strings.
 
 ## Roadmap
 
