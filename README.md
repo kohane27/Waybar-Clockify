@@ -6,29 +6,15 @@ https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-
 
 ## Description
 
-`Waybar-Clockify` is a simple wrapper between [clockify-cli](https://github.com/lucassabreu/clockify-cli) and [timewarrior](https://github.com/GothenburgBitFactory/timewarrior). I recommend getting familiar with both tools before using.
+`Waybar-Clockify` is a simple wrapper between [clockify-cli](https://github.com/lucassabreu/clockify-cli) and [timewarrior](https://github.com/GothenburgBitFactory/timewarrior).
 
-## Why?
+### Why?
 
-I love `timewarrior` but I find the summary and report functionalities lacking, while `Clockify` offers rich reports and time analysis:
+I love `timewarrior`, but I find the summary and report functionalities lacking, while `Clockify` offers rich reports and time analysis:
 
 ![clockify-2.png](./assets/clockify-2.png)
 
-Fortunately, we have `clockify-cli` which offers amazing integration with `Clockify`.
-
-Hence the birth of `Waybar-Clockify`.
-
-## Architecture
-
-I can continue using `timewarrior` to track time from the command line.
-
-So any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` will work.
-
-I want to display a timer on `Waybar`.
-
-`Waybar` will display the latest time tracked by `timewarrior`.
-
-At the end of each time record, `Waybar-Clockify` will send it to clockify.
+Fortunately, we have `clockify-cli` which offers amazing integration with `Clockify`. Hence the birth of `Waybar-Clockify`.
 
 ## Getting Started
 
@@ -63,7 +49,7 @@ At the end of each time record, `Waybar-Clockify` will send it to clockify.
 └── style.css
 ```
 
-3. Make `click.sh`, `main.sh`, `stop.sh` executable:
+3. Make `click.sh`, `main.sh` and `stop.sh` executable:
 
 `chmod +x click.sh main.sh stop.sh`
 
@@ -110,20 +96,13 @@ to() {
 }
 ```
 
-You may choose whatever function names you want. For example, if you're used to [timewarrior: zsh plugin for timewarrior](https://github.com/svenXY/timewarrior), then you can use the default `twa` and `two`.
+You may choose whatever function command names you want. For example, if you're used to [timewarrior: zsh plugin for timewarrior](https://github.com/svenXY/timewarrior), then you can use the default `twa` and `two`.
 
 ## Usage
 
-I. Purely through the command line:
+I recommend getting familiar with `clockify-cli` and `timewarrior` before using.
 
-https://user-images.githubusercontent.com/57322459/187881260-48ad1ad1-7964-4a61-8b84-2f1fb8876fc0.mp4
-
-
-1. Start the timer with `ti`
-2. Choose predefined tag in `clockify-tags.txt`
-3. Stop the timer with `to`
-
-II. Purely through Waybar:
+I. Purely through Waybar:
 
 https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
@@ -131,12 +110,34 @@ https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-
 2. Use rofi to choose predefined tag in `clockify-tags.txt`
 3. Right click to stop
 
+II. Purely through the command line:
+
+https://user-images.githubusercontent.com/57322459/187881260-48ad1ad1-7964-4a61-8b84-2f1fb8876fc0.mp4
+
+If you've added the optional shell functions to `~/.bashrc` or `~/.zshrc` (step 7 above):
+
+1. Start the timer with `ti`
+2. Choose predefined tag in `clockify-tags.txt`
+3. Stop the timer with `to`
+
 III. Start in command line and stop in Waybar
 
 IV. Start in Waybar and stop in command line
 
+## Architecture
+
 Permissive that default values are used.
 If no Project, Description, Tags are provided, default values are used.
+
+I can continue using `timewarrior` to track time from the command line.
+
+So any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` will work.
+
+I want to display a timer on `Waybar`.
+
+`Waybar` will display the latest time tracked by `timewarrior`.
+
+At the end of each time record, `Waybar-Clockify` will send it to clockify.
 
 ## How `Waybar-Clockify` works
 
@@ -153,7 +154,6 @@ clockify-cli manual \
   --tag "$tag"
   --interactive=0
 ```
-
 
 ## Caveats
 
