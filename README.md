@@ -29,14 +29,11 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 
 ### Installation
 
-1. Clone this repository:
-
-`git clone https://github.com/kohane27/Waybar-Clockify.git`
+1. Clone this repository: `git clone https://github.com/kohane27/Waybar-Clockify.git`
 
 2. Put the directory `src/Waybar-Clockify` under `~/.config/waybar/scripts/Waybar-Clockify`:
 
 ```
-❯ tree -L 3
 .
 ├── config
 ├── scripts
@@ -49,9 +46,7 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 └── style.css
 ```
 
-3. Make `click.sh`, `main.sh` and `stop.sh` executable:
-
-`chmod +x click.sh main.sh stop.sh`
+3. Make `click.sh`, `main.sh` and `stop.sh` executable: `chmod +x click.sh main.sh stop.sh`
 
 4. Add `Waybar-Clockify` module to `~/.config/waybar/config`:
 
@@ -104,31 +99,31 @@ You may choose whatever function command names you want. For example, if you're 
 
 There are two main ways to interact with `Waybar-Clockify`:
 
-### 1. Purely through Waybar
+### 1. Only through `Waybar`
 
 https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
-1. Left click to start
-2. Use `rofi` to click on the predefined tag in `clockify-tags.txt`
-3. Right click to stop
+1. Left click to start the timer
+2. Click on a predefined tag in `clockify-tags.txt` through `rofi`
+3. Right click to stop the timer
 
-### 2. Purely through the command line
+### 2. Only through the command line
 
 https://user-images.githubusercontent.com/57322459/187881260-48ad1ad1-7964-4a61-8b84-2f1fb8876fc0.mp4
 
 If you've added the optional shell functions to `~/.bashrc` or `~/.zshrc` (step 7 above):
 
-1. Start the timer with `ti`
-2. Choose predefined tag in `clockify-tags.txt`
-3. Stop the timer with `to`
+1. Use the command `ti` to start the timer
+2. Choose a predefined tag in `clockify-tags.txt` through `fzf`
+3. Use the command `to` to stop the timer
 
-Additionally, `you could` start `Waybar-Clockify` in the terminal and stop in `Waybar`, or start in `Waybar` and stop in the terminal.
+Additionally, you could start `Waybar-Clockify` in the terminal and stop in `Waybar`, or start in `Waybar` and stop in the terminal.
 
 ## How `Waybar-Clockify` works
 
-The backbone of time tracking is done by `timewarrior`, so you can use any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten`.
+The backbone of time tracking is done by `timewarrior`, so any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` still work.
 
-`Waybar` displays the latest time tracked by `timewarrior`: `timew get dom.active.duration`
+`Waybar` displays the latest time tracked by `timewarrior`, effectively `timew get dom.active.duration`.
 
 When you left-click the Waybar module or use the command `to`, it'll trigger the follow `clockify-cli` command to communicate with `clockify` API:
 
