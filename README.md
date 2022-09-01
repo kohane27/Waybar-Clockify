@@ -30,6 +30,7 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 ### Installation
 
 1. Clone this repository:
+
 `git clone https://github.com/kohane27/Waybar-Clockify.git`
 
 2. Put the directory `src/Waybar-Clockify` under `~/.config/waybar/scripts/Waybar-Clockify`:
@@ -99,17 +100,19 @@ You may choose whatever function command names you want. For example, if you're 
 
 ## Usage
 
-I recommend getting familiar with `clockify-cli` and `timewarrior` before using.
+**Note: I recommend getting familiar with `clockify-cli` and `timewarrior` before using.**
 
-I. Purely through Waybar:
+There are two main ways to interact with `Waybar-Clockify`:
+
+### 1. Purely through Waybar
 
 https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
 1. Left click to start
-2. Use rofi to choose predefined tag in `clockify-tags.txt`
+2. Use `rofi` to click on the predefined tag in `clockify-tags.txt`
 3. Right click to stop
 
-II. Purely through the command line:
+### 2. Purely through the command line
 
 https://user-images.githubusercontent.com/57322459/187881260-48ad1ad1-7964-4a61-8b84-2f1fb8876fc0.mp4
 
@@ -119,30 +122,15 @@ If you've added the optional shell functions to `~/.bashrc` or `~/.zshrc` (step 
 2. Choose predefined tag in `clockify-tags.txt`
 3. Stop the timer with `to`
 
-III. Start in command line and stop in Waybar
-
-IV. Start in Waybar and stop in command line
-
-## Architecture
-
-Permissive that default values are used.
-If no Project, Description, Tags are provided, default values are used.
-
-I can continue using `timewarrior` to track time from the command line.
-
-So any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten` will work.
-
-I want to display a timer on `Waybar`.
-
-`Waybar` will display the latest time tracked by `timewarrior`.
-
-At the end of each time record, `Waybar-Clockify` will send it to clockify.
+Additionally, `you could` start `Waybar-Clockify` in the terminal and stop in `Waybar`, or start in `Waybar` and stop in the terminal.
 
 ## How `Waybar-Clockify` works
 
-Once the record is done, `Waybar-Clockify` will use `clockify-cli` to send the record to `clockify`:
+The backbone of time tracking is done by `timewarrior`, so you can use any `timewarrior` commands like `cancel`, `continue`, `lengthen`, `shorten`.
 
-When you right-click the Waybar module or use the command `to`, it'll trigger the follow `clockify-cli` command:
+`Waybar` displays the latest time tracked by `timewarrior`: `timew get dom.active.duration`
+
+When you left-click the Waybar module or use the command `to`, it'll trigger the follow `clockify-cli` command to communicate with `clockify` API:
 
 ```sh
 clockify-cli manual \
@@ -154,61 +142,58 @@ clockify-cli manual \
   --interactive=0
 ```
 
-## Caveats
+It's permissive: if no project, description, tags are provided, default values are used.
 
-I. Inside `clockify-tags.txt`, you'll find the following two samples:
+### Caveats
+
+#### Tags need to already exist in `Clockify`
+
+I. Inside `clockify-tags.txt`, you'll find the following samples:
 
 ```
-{"p": "Code","t":["clientA","career"], "d": ""}
-{"p": "Code","t":["clientB","career"], "d": ""}
+{"p": "Code","t":["clientA","career"], "d": "projectA"}
+{"p": "Code","t":["clientB","career"], "d": "projectB"}
 {"p": "Entertainment","t": ["youtube"], "d": ""}
-{"p": "Entertainment","t": ["movie"], "d": ""}
 ```
 
-I use the timewarrior tag field
-
-TODO rewrite
-When you finish tracking a time record, each line will become a timewarrior tag record. 
-
-I hijacked it to become a json for `clockify-cli` to consume. Meaning of each key-value pair:
+I use the `timewarrior` tag field to convert it to become a json for `clockify-cli` to consume.
 
 - `p`: project
 - `t`: tags
 - `d`: description
 
-which correspond to PROJECT, TAGS and DESCRIPTION in `clockify-cli`:
+Each key corresponds to PROJECT, TAGS and DESCRIPTION in `clockify-cli`:
 
 ```
 ❯ clockify-cli report
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 |            ID            |        START        |         END         |   DUR   |    PROJECT    | DESCRIPTION | TASK |                TAGS                |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
-| 63121910b456dc322924eb1f | 2022-09-01 08:00:00 | 2022-09-01 09:00:00 | 1:00:00 | Health        | gym         |      | gym (630328ec899ba763d36b39d7)     |
-|                          |                     |                     |         |               |             |      | weight (630106dd96dd4c674e51a45a)  |
+| 63121910b456dc322924eb1f | 2022-09-01 08:00:00 | 2022-09-01 09:00:00 | 1:00:00 | Code          | projectA    |      | clientA (630328ec899ba763d36b39d7) |
+|                          |                     |                     |         |               |             |      | career (630106dd96dd4c674e51a45a)  |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
-| 63131a977f07da44c10f6a21 | 2022-09-01 09:52:59 | 2022-09-01 10:49:00 | 0:56:01 | Entertainment | yt          |      | ent-vid (6306445eb59c366b3eaz4280) |
+| 63131a977f07da44c10f6a21 | 2022-09-01 09:52:59 | 2022-09-01 10:49:00 | 0:56:01 | Entertainment | cat vid     |      | youtube (6306445eb59c366b3eaz4280) |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 | TOTAL                    |                     |                     | 1:56:01 |               |             |      |                                    |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 ```
 
-You need to make sure `p`(`project`) and `t`(`tags`) fields exist in clockify, or else `Waybar-Clockify` will fail. In the above example, the projects `Entertainment` and `Health`, and the tags `ent-vid`, `gym`, `weight` need to exist in clockify.
+You need to make sure `p`(`project`) and `t`(`tags`) fields exist in clockify, or else `Waybar-Clockify` will fail. In the above example, the projects `Code` and `Entertainment`, and the tags `clientA`, `clientB`, `youtube` need to exist in `Clockify`.
 
-To see the projects available `clockify-cli project list --not-archived --csv`.
+To see the projects available `clockify-cli project list --not-archived --csv`
 
-To see the tags available: `clockify-cli tag`.
+To see the tags available: `clockify-cli tag`
 
-II. Back up your `.timewarrior` data.
+#### Back up your `.timewarrior` data
 
-I use `timewarrior` as a medium between `Waybar-Clockify` and `clockify-cli`. It'll append records like below to `~/.timewarrior/data/2022-08.data`:
+I use `timewarrior` as a medium between `Waybar-Clockify` and `clockify-cli`. It'll append tags like below to `~/.timewarrior/data/2022-09.data`:
 
 ```
-inc 20220831T091726Z - 20220831T091729Z # "{\"p\": \"Config\",\"d\": \"\",\"t\": [\"config\"]}"
-inc 20220831T091819Z - 20220831T091822Z # "{\"p\": \"Entertainment\",\"d\": \"\",\"t\": [\"ent-vid\"]}"
-inc 20220831T133109Z - 20220831T133121Z # "{\"p\": \"Code\",\"t\": [\"code\",\"personal\"], \"d\": \"client A\"}"
+inc 20220831T091819Z - 20220831T091822Z # "{\"p\": \"Entertainment\",\"d\": \"\",\"t\": [\"youtube\"]}"
+inc 20220831T133109Z - 20220831T133121Z # "{\"p\": \"Code\",\"t\": [\"code\",\"career\"], \"d\": \"clientA\"}"
 ```
 
-Please consider this modification of timewarrior data before using `Waybar-Clockify`.
+Please take into acount of this modification of `timewarrior` data before using `Waybar-Clockify`.
 
 ## Roadmap
 
@@ -225,8 +210,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
