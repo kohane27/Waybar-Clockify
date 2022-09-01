@@ -25,7 +25,7 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 - [clockify-cli](https://github.com/lucassabreu/clockify-cli)
 - [rofi](https://github.com/davatorium/rofi)
 - [jq](https://github.com/stedolan/jq)
-- [fzf](https://github.com/junegunn/fzf) (optional if you want to control through terminal)
+- [fzf](https://github.com/junegunn/fzf) (optional if you want to control it through the terminal)
 
 ### Installation
 
