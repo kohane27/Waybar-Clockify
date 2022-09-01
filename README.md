@@ -121,9 +121,9 @@ Additionally, you could start `Waybar-Clockify` in the terminal and stop in `Way
 
 ### Caveats
 
-#### Tags need to already exist in `Clockify`
+#### 1. Tags need to already exist in `Clockify`
 
-I. Inside `clockify-tags.txt`, you'll find the following samples:
+Inside `clockify-tags.txt`, you'll find the following samples:
 
 ```
 {"p": "Code","t":["clientA","career"], "d": "projectA"}
@@ -131,7 +131,7 @@ I. Inside `clockify-tags.txt`, you'll find the following samples:
 {"p": "Entertainment","t": ["youtube"], "d": ""}
 ```
 
-I use the `timewarrior` tag field to convert it to become a json for `clockify-cli` to consume.
+The `timewarrior` tag field is converted to a json for `clockify-cli` to consume.
 
 - `p`: project
 - `t`: tags
@@ -145,7 +145,7 @@ Each key corresponds to PROJECT, TAGS and DESCRIPTION in `clockify-cli`:
 |            ID            |        START        |         END         |   DUR   |    PROJECT    | DESCRIPTION | TASK |                TAGS                |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 | 63121910b456dc322924eb1f | 2022-09-01 08:00:00 | 2022-09-01 09:00:00 | 1:00:00 | Code          | projectA    |      | clientA (630328ec899ba763d36b39d7) |
-|                          |                     |                     |         |               |             |      | career (630106dd96dd4c674e51a45a)  |
+|                          |                     |                     |         |               |             |      | career  (630106dd96dd4c674e51a45a) |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
 | 63131a977f07da44c10f6a21 | 2022-09-01 09:52:59 | 2022-09-01 10:49:00 | 0:56:01 | Entertainment | cat vid     |      | youtube (6306445eb59c366b3eaz4280) |
 +--------------------------+---------------------+---------------------+---------+---------------+-------------+------+------------------------------------+
@@ -159,7 +159,7 @@ To see the projects available `clockify-cli project list --not-archived --csv`
 
 To see the tags available: `clockify-cli tag`
 
-#### Back up your `.timewarrior` data
+#### 2. Back up your `.timewarrior` data
 
 I use `timewarrior` as a medium between `Waybar-Clockify` and `clockify-cli`. It'll append tags like below to `~/.timewarrior/data/2022-09.data`:
 
