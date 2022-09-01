@@ -191,6 +191,7 @@ It's permissive: if no project, description, tags are provided, default values a
 ## Roadmap
 
 - [ ] `fzf`: after selection, move cursor inside `d` field so it's ready for input: `'{"p": "Health","t":["gym","weight", "d": "|"]}'`
+- [ ] after clicking `Waybar`, what if user wants to add description?
 
 ## Contributing
 
