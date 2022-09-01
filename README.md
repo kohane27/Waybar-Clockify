@@ -190,13 +190,11 @@ It's permissive: if no project, description, tags are provided, default values a
 
 ## Roadmap
 
-- [ ] `fzf`: after selection, move cursor inside `d` field so it's ready for input:
-`'{"p": "Health","t":["gym","weight", "d": "|"]}'`
+- [ ] `fzf`: after selection, move cursor inside `d` field so it's ready for input: `'{"p": "Health","t":["gym","weight", "d": "|"]}'`
 
 ## Contributing
 
-Any contributions you make are **greatly appreciated**. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Any contributions you make are **greatly appreciated**. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also open an issue.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -217,3 +215,4 @@ Don't forget to give the project a star! Thanks again!
 * [fzf](https://github.com/junegunn/fzf)
 * [jq](https://github.com/stedolan/jq)
 
+Don't forget to give the project a star! Thanks again!
