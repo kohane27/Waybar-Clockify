@@ -104,6 +104,7 @@ There are two main ways to interact with `Waybar-Clockify`:
 https://user-images.githubusercontent.com/57322459/187881265-150b0227-c0b4-41c7-97d7-c203fbcebb27.mp4
 
 1. Left click to start the timer
+Note: When the timer is running, left click again allows *replacing* current tag
 2. Click on a predefined tag in `clockify-tags.txt` through `rofi`
 3. Right click to stop the timer
 
@@ -192,7 +193,6 @@ It's permissive: if no project, description, tags are provided, default values a
 
 - [ ] `fzf`: after selection, move cursor inside `d` field so it's ready for input: `'{"p": "Health","t":["gym","weight", "d": "|"]}'`
 - [ ] after clicking `Waybar`, what if user wants to add description?
-- [ ] after clicking `Waybar`, what if user wants to change project and tags and basically choose again?
 
 ## Contributing
 
