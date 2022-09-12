@@ -36,7 +36,7 @@ is_t_p_d_field_exist() {
 
 stop() {
   # no active tracker running; exit
-  if [[ "$(timew get dom.active)" == 0 ]]; then
+  if [[ "$(timew get dom.active)" == "0" ]]; then
     exit 1
   fi
 
