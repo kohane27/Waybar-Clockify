@@ -2,7 +2,7 @@
 
 main() {
   while :; do
-    if [[ "$(timew get dom.active)" == 0 ]]; then
+    if [[ "$(timew get dom.active)" == "0" ]]; then
       printf "%s\n" "0:00:00"
     else
       if [[ "$(timew)" =~ (Total.*?[0-9]{1}:[0-9]{2}:[0-9]{2}) ]]; then
