@@ -33,29 +33,31 @@ is_t_p_d_field_exist() {
 }
 
 stop() {
-  # no active tracker running; exit
-  if [[ "$(timew get dom.active)" == "0" ]]; then
+  # no active instance running; exit
+  if [[ $(timew get dom.active) == "0" ]]; then
+    exit 1
+    # output is empty, meaning there's a running instance
+  elif [[ -z $(timew get dom.tracked.1.end) ]]; then
+    # stop active tracker
+    timew stop
+    start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
+    end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
+
+    # real record exists, check if json inside tag exists
+    is_t_p_d_field_exist
+
+    # send to `clockify-cli`
+    clockify-cli manual \
+      --project "$project" \
+      --description "$description" \
+      --when "$start" \
+      --when-to-close "$end" \
+      --tag "$tag" \
+      --interactive=0
+    exit 0
+  else
     exit 1
   fi
-
-  # stop active tracker
-  timew stop
-
-  # real record exists, check if json inside tag exists
-  is_t_p_d_field_exist
-
-  start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
-  end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
-
-  # send to `clockify-cli`
-  clockify-cli manual \
-    --project "$project" \
-    --description "$description" \
-    --when "$start" \
-    --when-to-close "$end" \
-    --tag "$tag" \
-    --interactive=0
-  exit 0
 }
 
 stop
