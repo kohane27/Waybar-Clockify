@@ -76,13 +76,16 @@ Fortunately, we have `clockify-cli` which offers amazing integration with `Clock
 ```bash
 ti() {
   # no running instance
-  if [[ "$(timew get dom.active)" == 0 ]]; then
-    timew start > /dev/null 2>&1
+  if [[ "$(timew get dom.active)" == "0" ]]; then
+    timew start >/dev/null 2>&1
     print -z timew tag @1 \'"$(cat <~/.config/waybar/scripts/Waybar-Clockify/clockify-tags.txt | fzf)"\'
-  fi
-  # already have a running instance with tag(s)
-  if [[ "$(timew get dom.active)" == 1 ]] && [[ "$(timew get dom.active.tag.count)" == 1 ]]; then
-    return
+   # modify current instance's description/tag/project
+  elif [[ "$(timew get dom.active)" == "1" ]] && [[ "$(timew get dom.active.tag.count)" == "1" ]]; then
+    current_tag="$(timew get dom.active.tag.1)"
+    # untag current tag
+    timew untag @1 "$current_tag"
+    # tag again with new selection
+    print -z timew tag @1 \'"$(cat <~/.config/waybar/scripts/Waybar-Clockify/clockify-tags.txt | fzf)"\'
   fi
 }
 
@@ -199,7 +202,9 @@ It's permissive: if no project, description, tags are provided, default values a
 
 Solution: append `tmux send-keys Left Left Left` to `ti` function
 
-- [ ] after clicking `Waybar` module, what if user wants to add description?
+- [x] after clicking `Waybar` module, what if user wants to add description?
+
+Solution: issue `ti` again to modify current instance's description/tag/project
 
 ## Contributing
 
