@@ -17,13 +17,13 @@
 selection=$(rofi -location 3 -dmenu -theme Arc-Dark.rasi -no-fixed-num-lines -hover-select -me-select-entry '' -me-accept-entry MousePrimary "$@" <~/.config/waybar/scripts/Waybar-Clockify/clockify-tags.txt)
 
 # no active tracker running; can start
-if [[ "$(timew get dom.active)" == 0 ]]; then
+if [[ "$(timew get dom.active)" == "0" ]]; then
   # start
   timew start >/dev/null 2>&1
   # tag selection
   timew tag @1 "$selection"
 # active tracker with tag
-elif [[ "$(timew get dom.active)" == 1 ]] && [[ "$(timew get dom.active.tag.count)" == 1 ]]; then
+elif [[ "$(timew get dom.active)" == "1" ]] && [[ "$(timew get dom.active.tag.count)" == "1" ]]; then
   current_tag="$(timew get dom.active.tag.1)"
   # untag current tag
   timew untag @1 "$current_tag"
