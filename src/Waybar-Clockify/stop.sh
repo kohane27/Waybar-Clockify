@@ -4,8 +4,6 @@ is_t_p_d_field_exist() {
   # timewarrior data format:
   # inc 20220830T061333Z - 20220830T061354Z # '{"p": "Health","t": ["run","gym"],"d": "treadmill"}'
   json=$(timew get dom.tracked.1.json)
-  start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
-  end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
   timew_tags=$(printf "%s" "$json" | jq -cr '.tags[0]')
 
   # check if t field exists
@@ -51,14 +49,18 @@ stop() {
   else
     # real record exists, check if json inside tag exists
     is_t_p_d_field_exist
-    # sending to `clockify-cli`
+
+    start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
+    end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
+
+    # send to `clockify-cli`
     clockify-cli manual \
       --project "$project" \
       --description "$description" \
       --when "$start" \
       --when-to-close "$end" \
       --tag "$tag" \
-      --interactive=0
+      --interactive=0 >/dev/null 2>&1
     exit 0
   fi
 }
