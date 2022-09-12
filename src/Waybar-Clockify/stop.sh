@@ -36,8 +36,7 @@ stop() {
   # no active instance running; exit
   if [[ $(timew get dom.active) == "0" ]]; then
     exit 1
-    # output is empty, meaning there's a running instance
-  elif [[ -z $(timew get dom.tracked.1.end) ]]; then
+  else
     # stop active tracker
     timew stop
     start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
@@ -55,8 +54,6 @@ stop() {
       --tag "$tag" \
       --interactive=0
     exit 0
-  else
-    exit 1
   fi
 }
 
