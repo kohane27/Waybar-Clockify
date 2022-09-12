@@ -39,30 +39,23 @@ stop() {
   fi
 
   # stop active tracker
-  timew stop >/dev/null 2>&1
+  timew stop
 
-  # need to get 1min ago or else getting old record
-  last_entry="$(timew export 1min ago)"
-  # empty [] meaning no latest record -> no active tracker running
-  if [[ ! $last_entry =~ "start" ]]; then
-    exit 1
-  else
-    # real record exists, check if json inside tag exists
-    is_t_p_d_field_exist
+  # real record exists, check if json inside tag exists
+  is_t_p_d_field_exist
 
-    start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
-    end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
+  start=$(timew get dom.tracked.1.start | sed "s/T/ /g")
+  end=$(timew get dom.tracked.1.end | sed "s/T/ /g")
 
-    # send to `clockify-cli`
-    clockify-cli manual \
-      --project "$project" \
-      --description "$description" \
-      --when "$start" \
-      --when-to-close "$end" \
-      --tag "$tag" \
-      --interactive=0 >/dev/null 2>&1
-    exit 0
-  fi
+  # send to `clockify-cli`
+  clockify-cli manual \
+    --project "$project" \
+    --description "$description" \
+    --when "$start" \
+    --when-to-close "$end" \
+    --tag "$tag" \
+    --interactive=0
+  exit 0
 }
 
 stop
